@@ -1,6 +1,7 @@
 import { Inter as FontSans } from "next/font/google";
 import "../globals.css";
 
+import NextAuthSessionProvider from "@/components/NextAuthSessionProvider";
 import { cn } from "@/lib/utils";
 
 const fontSans = FontSans({
@@ -22,7 +23,7 @@ export default function RootLayout({
         )}
       >
         <div className="flex h-screen w-full items-center justify-center px-4">
-          {children}
+          <NextAuthSessionProvider>{children}</NextAuthSessionProvider>
         </div>
       </body>
     </html>

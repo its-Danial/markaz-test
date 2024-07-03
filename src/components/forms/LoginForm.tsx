@@ -15,7 +15,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { AiOutlineLoading } from "react-icons/ai";
 import {
   Card,
   CardContent,
@@ -35,16 +39,29 @@ const FormSchema = z.object({
 });
 
 export default function LoginForm() {
+  const [loading, setLoading] = useState(false);
+
+  const router = useRouter();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      username: "",
-      password: "",
+      username: "emilys",
+      password: "emilyspass",
     },
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log("✌️data --->", data);
+  async function onSubmit({ username, password }: z.infer<typeof FormSchema>) {
+    setLoading(true);
+    const result = await signIn("credentials", {
+      redirect: false,
+      username,
+      password,
+    });
+    console.log("✌️result --->", result);
+    setLoading(false);
+    if (result && result.ok) {
+      router.push("/");
+    }
   }
 
   return (
@@ -72,7 +89,8 @@ export default function LoginForm() {
             />
           </CardContent>
           <CardFooter className="flex-col">
-            <Button type="submit" className="w-full">
+            <Button disabled={loading} type="submit" className="w-full">
+              {loading && <AiOutlineLoading className="animate-spin" />}
               Sign in
             </Button>
             <div className="mt-4 text-center text-sm">
