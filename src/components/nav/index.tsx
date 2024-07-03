@@ -30,7 +30,7 @@ export default function Nav() {
           />
         </Link>
         <DropdownMenu>
-          <DropdownMenuTrigger asChild>
+          <DropdownMenuTrigger className="cursor-pointer shadow" asChild>
             <Avatar>
               <AvatarImage
                 src={session?.user.image}
