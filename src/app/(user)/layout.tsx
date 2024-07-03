@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
 import "../globals.css";
 
+import Nav from "@/components/nav";
 import NextAuthSessionProvider from "@/components/NextAuthSessionProvider";
 import { cn } from "@/lib/utils";
 
@@ -23,12 +24,12 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={cn(
-          "min-h-screen bg-background font-sans antialiased",
-          fontSans.variable,
-        )}
+        className={cn("min-h-screen font-sans antialiased", fontSans.variable)}
       >
-        <NextAuthSessionProvider>{children}</NextAuthSessionProvider>
+        <NextAuthSessionProvider>
+          <Nav />
+          {children}
+        </NextAuthSessionProvider>
       </body>
     </html>
   );

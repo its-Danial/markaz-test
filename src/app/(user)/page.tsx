@@ -1,9 +1,7 @@
-"use client";
-
-import { useSession } from "next-auth/react";
-
 export default function Home() {
-  const { data: session, status } = useSession();
-  console.log("✌️session --->", session);
-  return <h1>{session?.user.email}</h1>;
+  return (
+    <main className="flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 bg-muted/40 p-8 md:gap-8 md:p-10 md:px-16">
+      <h1>Hello</h1>
+    </main>
+  );
 }

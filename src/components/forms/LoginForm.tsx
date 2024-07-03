@@ -16,7 +16,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { signIn } from "next-auth/react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { AiOutlineLoading } from "react-icons/ai";
@@ -88,17 +87,11 @@ export default function LoginForm() {
               formControl={form.control}
             />
           </CardContent>
-          <CardFooter className="flex-col">
+          <CardFooter>
             <Button disabled={loading} type="submit" className="w-full">
               {loading && <AiOutlineLoading className="animate-spin" />}
-              Sign in
+              <span className="ml-4">Sign in</span>
             </Button>
-            <div className="mt-4 text-center text-sm">
-              Don&apos;t have an account?{" "}
-              <Link href="sign-up" className="underline">
-                Sign up
-              </Link>
-            </div>
           </CardFooter>
         </form>
       </Form>
