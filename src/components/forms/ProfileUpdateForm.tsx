@@ -41,11 +41,11 @@ export default function ProfileUpdateForm() {
   const form = useForm<FormSchemaType>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      username: "",
-      email: "",
-      firstName: "",
-      lastName: "",
-      gender: "male",
+      username: session?.user.username,
+      email: session?.user.email,
+      firstName: session?.user.firstName,
+      lastName: session?.user.lastName,
+      gender: session?.user.gender as z.infer<typeof FormSchema>["gender"],
     },
   });
 
