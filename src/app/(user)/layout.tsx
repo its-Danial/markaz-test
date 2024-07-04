@@ -4,6 +4,7 @@ import "../globals.css";
 
 import Nav from "@/components/nav";
 import NextAuthSessionProvider from "@/components/NextAuthSessionProvider";
+import { Toaster } from "@/components/ui/toaster";
 import { cn } from "@/lib/utils";
 
 const fontSans = FontSans({
@@ -28,7 +29,10 @@ export default function RootLayout({
       >
         <NextAuthSessionProvider>
           <Nav />
-          {children}
+          <main className="min-h-[calc(100vh_-_theme(spacing.16))] bg-muted/40 p-8 md:gap-8 md:p-10 md:px-16">
+            {children}
+            <Toaster />
+          </main>
         </NextAuthSessionProvider>
       </body>
     </html>
