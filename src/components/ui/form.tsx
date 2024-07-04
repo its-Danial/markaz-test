@@ -1,17 +1,27 @@
-import * as React from "react";
 import * as LabelPrimitive from "@radix-ui/react-label";
 import { Slot } from "@radix-ui/react-slot";
+import * as React from "react";
 import {
+  Control,
   Controller,
   ControllerProps,
   FieldPath,
   FieldValues,
   FormProvider,
+  useController,
   useFormContext,
 } from "react-hook-form";
 
-import { cn } from "@/lib/utils";
 import { Label } from "@/components/ui/label";
+import { cn } from "@/lib/utils";
+import { Input } from "./input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./select";
 
 const Form = FormProvider;
 
@@ -60,6 +70,77 @@ const useFormField = () => {
     formMessageId: `${id}-form-item-message`,
     ...fieldState,
   };
+};
+
+type ValidatedFormFieldProps<T extends FieldValues> = {
+  name: FieldPath<T>;
+  label?: string;
+  placeholder?: string;
+  description?: string;
+  inputType?: string;
+  formControl: Control<T, any>;
+  selectOptions?: string[];
+};
+
+const ValidatedFormField = <T extends FieldValues>({
+  name,
+  label,
+  placeholder,
+  description,
+  inputType = "text",
+  formControl,
+  selectOptions,
+}: ValidatedFormFieldProps<T>) => {
+  const { field, fieldState } = useController({
+    name,
+    control: formControl,
+  });
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (inputType === "file" && event.target.files) {
+      field.onChange(event.target.files[0]);
+    } else {
+      field.onChange(event.target.value);
+    }
+  };
+
+  return (
+    <FormItem className="w-full transition-all">
+      {label && <FormLabel>{label}</FormLabel>}
+      <FormControl>
+        {inputType === "select" ? (
+          <Select onValueChange={field.onChange} defaultValue={field.value}>
+            <FormControl>
+              <SelectTrigger className="capitalize">
+                <SelectValue placeholder={placeholder} />
+              </SelectTrigger>
+            </FormControl>
+            <SelectContent>
+              {selectOptions?.map((option, index) => (
+                <SelectItem key={index} value={option} className="capitalize">
+                  {option}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        ) : (
+          <Input
+            placeholder={placeholder}
+            type={inputType}
+            {...field}
+            onChange={handleChange}
+            value={inputType === "file" ? undefined : field.value}
+          />
+        )}
+      </FormControl>
+      {description && <FormDescription>{description}</FormDescription>}
+      {fieldState.error && (
+        <FormMessage className="text-xs text-red-600">
+          {fieldState.error.message}
+        </FormMessage>
+      )}
+    </FormItem>
+  );
 };
 
 type FormItemContextValue = {
@@ -166,12 +247,13 @@ const FormMessage = React.forwardRef<
 FormMessage.displayName = "FormMessage";
 
 export {
-  useFormField,
   Form,
-  FormItem,
-  FormLabel,
   FormControl,
   FormDescription,
-  FormMessage,
   FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  useFormField,
+  ValidatedFormField,
 };
