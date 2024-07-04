@@ -1,20 +1,11 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Control, FieldPath, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import { Form, ValidatedFormField } from "@/components/ui/form";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -37,11 +28,13 @@ const FormSchema = z.object({
   }),
 });
 
+type FormSchemaType = z.infer<typeof FormSchema>;
+
 export default function LoginForm() {
   const [loading, setLoading] = useState(false);
 
   const router = useRouter();
-  const form = useForm<z.infer<typeof FormSchema>>({
+  const form = useForm<FormSchemaType>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       username: "emilys",
@@ -74,13 +67,13 @@ export default function LoginForm() {
             </CardDescription>
           </CardHeader>
           <CardContent className="grid gap-4">
-            <LoginFormField
+            <ValidatedFormField<FormSchemaType>
               name="username"
               label="Username"
               placeholder="emilys"
               formControl={form.control}
             />
-            <LoginFormField
+            <ValidatedFormField<FormSchemaType>
               name="password"
               label="Password"
               inputType="password"
@@ -99,44 +92,5 @@ export default function LoginForm() {
         </form>
       </Form>
     </Card>
-  );
-}
-
-type LoginFormFieldProps = {
-  name: FieldPath<z.infer<typeof FormSchema>>;
-  label: string;
-  placeholder?: string;
-  description?: string;
-  inputType?: string;
-  formControl: Control<z.infer<typeof FormSchema>, any>;
-};
-
-function LoginFormField({
-  name,
-  label,
-  placeholder,
-  description,
-  inputType,
-  formControl,
-}: LoginFormFieldProps) {
-  return (
-    <FormField
-      control={formControl}
-      name={name}
-      render={({ field }) => (
-        <FormItem className="transition-all">
-          <FormLabel>{label}</FormLabel>
-          <FormControl>
-            <Input
-              placeholder={placeholder ?? undefined}
-              type={inputType ?? "text"}
-              {...field}
-            />
-          </FormControl>
-          {description && <FormDescription>{description}</FormDescription>}
-          <FormMessage className="text-xs" />
-        </FormItem>
-      )}
-    />
   );
 }
