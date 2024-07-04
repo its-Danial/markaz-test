@@ -74,3 +74,17 @@
     @apply bg-background text-foreground;
   }
 }
+
+.scroll-bar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scroll-bar::-webkit-scrollbar-track {
+  background: #e3e4e6 0% 0% no-repeat padding-box;
+  border-radius: 3px;
+}
+
+.scroll-bar::-webkit-scrollbar-thumb {
+  background: hsl(var(--primary)) 0% 0% no-repeat padding-box;
+  border-radius: 3px;
+}
