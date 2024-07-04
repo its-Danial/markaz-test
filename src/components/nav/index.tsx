@@ -22,6 +22,7 @@ export default function Nav() {
     <nav className="sticky top-0 z-50 flex h-16 w-full items-center justify-between border-b bg-background/95 px-8 backdrop-blur supports-[backdrop-filter]:bg-background/60 md:px-16">
       <Link href="/">
         <Image
+          priority
           src="/black-logo.png"
           alt="company logo"
           width={50}
