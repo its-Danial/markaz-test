@@ -88,9 +88,12 @@ export default function LoginForm() {
             />
           </CardContent>
           <CardFooter>
-            <Button disabled={loading} type="submit" className="w-full">
-              {loading && <AiOutlineLoading className="animate-spin" />}
-              <span className="ml-4">Sign in</span>
+            <Button type="submit" disabled={loading} className="w-full">
+              {loading ? (
+                <AiOutlineLoading size={20} className="animate-spin" />
+              ) : (
+                <span>Sign in</span>
+              )}
             </Button>
           </CardFooter>
         </form>

@@ -1,8 +1,18 @@
+import { cn } from "@/lib/utils";
 import { AiOutlineLoading } from "react-icons/ai";
 
-export default function Loader() {
+export default function Loader({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) {
   return (
-    <div className="flex h-screen w-full items-center justify-center px-4">
+    <div
+      className={cn(
+        "flex h-[50vh] w-full items-center justify-center px-4",
+        className,
+      )}
+      {...props}
+    >
       <AiOutlineLoading size={50} className="animate-spin" />
     </div>
   );
