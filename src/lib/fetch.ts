@@ -1,7 +1,7 @@
 import "server-only";
 
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession, Session } from "next-auth";
+import { authOptions } from "./authOptions";
 
 export default async function $fetch(
   url: string | URL | Request,
