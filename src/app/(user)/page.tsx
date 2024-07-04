@@ -10,7 +10,7 @@ export default async function Home() {
   ).json();
 
   return (
-    <main className="min-h-[calc(100vh_-_theme(spacing.16))] bg-muted/40 p-8 md:gap-8 md:p-10 md:px-16">
+    <>
       <header className="mb-6 flex items-center justify-between">
         <div className="flex flex-col space-y-2">
           <h1 className="text-3xl font-bold tracking-tight md:text-4xl">
@@ -36,6 +36,6 @@ export default async function Home() {
           <PostCard key={post.id} {...post} />
         ))}
       </div>
-    </main>
+    </>
   );
 }
