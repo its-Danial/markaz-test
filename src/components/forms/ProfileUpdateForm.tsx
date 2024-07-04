@@ -80,7 +80,7 @@ export default function ProfileUpdateForm() {
   };
 
   function onSubmit(body: z.infer<typeof FormSchema>) {
-    console.log("onSubmit", body);
+    console.log("onSubmit", { ...body, image: avatarUrl });
 
     setLoading(true);
 
@@ -92,13 +92,26 @@ export default function ProfileUpdateForm() {
     })
       .then((res) => res.json())
       .then(async (res) => {
+        /* NOTE: the correct behaviour would be to save the response in the state, 
+        since with this dummy api the response never changes I will save the 
+        form data directly in the fields */
+
+        // await update({
+        //   username: res.username,
+        //   email: res.email,
+        //   firstName: res.firstName,
+        //   lastName: res.lastName,
+        //   gender: res.gender,
+        //   image: res.image,
+        // });
+
         await update({
-          username: res.username,
-          email: res.email,
-          firstName: res.firstName,
-          lastName: res.lastName,
-          gender: res.gender,
-          image: res.image,
+          ...session,
+          username: body.username,
+          email: body.email,
+          firstName: body.firstName,
+          lastName: body.lastName,
+          gender: body.gender,
         });
         toast({
           title: "Update successful: API response",
