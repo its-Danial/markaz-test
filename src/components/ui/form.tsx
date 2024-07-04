@@ -109,7 +109,7 @@ const ValidatedFormField = <T extends FieldValues>({
       {label && <FormLabel>{label}</FormLabel>}
       <FormControl>
         {inputType === "select" ? (
-          <Select onValueChange={field.onChange} defaultValue={field.value}>
+          <Select onValueChange={field.onChange} value={field.value}>
             <FormControl>
               <SelectTrigger className="capitalize">
                 <SelectValue placeholder={placeholder} />
