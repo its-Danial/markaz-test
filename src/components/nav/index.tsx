@@ -53,11 +53,11 @@ export default function Nav() {
           <DropdownMenuContent>
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <Link href="/profile" className="w-full">
+            <Link href="/profile">
+              <DropdownMenuItem className="cursor-pointer">
                 Profile
-              </Link>
-            </DropdownMenuItem>
+              </DropdownMenuItem>
+            </Link>
             <DropdownMenuItem
               onClick={() => signOut()}
               className="cursor-pointer"
