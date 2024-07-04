@@ -11,7 +11,6 @@ import { useEffect, useRef, useState } from "react";
 import { AiOutlineLoading } from "react-icons/ai";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
-import Loader from "../ui/loader";
 import { toast } from "../ui/use-toast";
 
 const FormSchema = z.object({
@@ -143,10 +142,6 @@ export default function ProfileUpdateForm() {
         }),
       )
       .finally(() => setLoading(false));
-  }
-
-  if (sessionStatus === "loading") {
-    return <Loader className="h-[50vh]" />;
   }
 
   return (
