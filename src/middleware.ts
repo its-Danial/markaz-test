@@ -6,8 +6,6 @@ export async function middleware(req: NextRequest) {
   try {
     const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
 
-    console.log("✌️token --->", token);
-
     const { pathname } = req.nextUrl;
     const isAuthPage = pathname === "/login";
 
