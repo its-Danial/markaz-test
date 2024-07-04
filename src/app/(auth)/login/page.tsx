@@ -1,5 +1,5 @@
 import LoginForm from "@/components/forms/LoginForm";
-import { Metadata } from "next";
+import { Metadata } from "next/types";
 
 export default function Login() {
   return <LoginForm />;

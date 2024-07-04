@@ -1,6 +1,7 @@
 import ProfileUpdateForm from "@/components/forms/ProfileUpdateForm";
 import SettingsNav from "@/components/nav/SettingsNav";
 import Divider from "@/components/ui/divider";
+import { Metadata } from "next/types";
 
 export default function Profile() {
   return (
@@ -29,3 +30,8 @@ export default function Profile() {
     </div>
   );
 }
+
+export const metadata: Metadata = {
+  title: "Markaz | Profile",
+  description: "Account settings",
+};

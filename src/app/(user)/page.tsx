@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input";
 import $fetch from "@/lib/fetch";
 import { Post } from "@/types";
 import { Search } from "lucide-react";
+import { Metadata } from "next/types";
 
 export default async function Home() {
   const posts: Post = await (
@@ -39,3 +40,8 @@ export default async function Home() {
     </>
   );
 }
+
+export const metadata: Metadata = {
+  title: "Markaz | Dashboard",
+  description: "View all posts here",
+};
