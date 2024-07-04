@@ -1,3 +1,5 @@
+import "server-only";
+
 import { authOptions } from "@/lib/authOptions";
 import NextAuth from "next-auth";
 
