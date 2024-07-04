@@ -7,6 +7,7 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Form, ValidatedFormField } from "@/components/ui/form";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { AiOutlineLoading } from "react-icons/ai";
 import {
@@ -32,6 +33,7 @@ type FormSchemaType = z.infer<typeof FormSchema>;
 export default function LoginForm() {
   const [loading, setLoading] = useState(false);
 
+  const router = useRouter();
   const form = useForm<FormSchemaType>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -43,15 +45,15 @@ export default function LoginForm() {
   async function onSubmit({ username, password }: z.infer<typeof FormSchema>) {
     setLoading(true);
     const result = await signIn("credentials", {
-      redirect: true,
+      redirect: false,
       username,
       password,
     });
     console.log("✌️result --->", result);
     setLoading(false);
-    // if (result!.ok) {
-    //   router.push("/");
-    // }
+    if (result!.ok) {
+      router.push("/");
+    }
   }
 
   return (
